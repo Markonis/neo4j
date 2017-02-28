@@ -4,13 +4,11 @@ var neo4j = require('neo4j-driver').v1;
 
 describe('Neo4j', function() {
   beforeEach(function() {
-    var config = {
-      readEnv: function() {
-        return '';
-      }
-    };
-
-    this.neo4j = new Neo4j(config);
+    this.neo4j = new Neo4j({
+      url: 'test-url',
+      user: 'test-user',
+      password: 'test-password'
+    });
   });
 
   describe('convertNumbers(rawResult)', function(bundle) {

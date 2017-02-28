@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Markonis/neo4j#readme",
   "dependencies": {
+    "@markonis/options": "0.0.1",
     "neo4j-driver": "^1.1.1",
     "underscore": "^1.8.3"
   },

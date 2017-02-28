@@ -1,12 +1,19 @@
 var neo4j = require('neo4j-driver').v1;
 var _ = require('underscore');
+var Options = require('@markonis/options');
 
 module.exports = (function() {
 
-  function Neo4j(config) {
-    var url = config.readEnv('DATABASE_URL');
-    var user = config.readEnv('DATABASE_USERNAME');
-    var pass = config.readEnv('DATABASE_PASSWORD');
+  function Neo4j(params) {
+    var options = new Options(params, {
+      url: process.env['DATABASE_URL'],
+      user: process.env['DATABASE_USERNAME'],
+      password: process.env['DATABASE_PASSWORD']
+    });
+
+    var url = options.get('url');
+    var user = options.get('user');
+    var pass = options.get('password');
     var driver = null;
     var session = null;
 
