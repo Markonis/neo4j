@@ -1,6 +1,6 @@
 {
   "name": "@markonis/neo4j",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A simple wrapper around the neo4j node driver",
   "main": "index.js",
   "scripts": {
