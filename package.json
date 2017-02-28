@@ -1,0 +1,30 @@
+{
+  "name": "@markonis/neo4j",
+  "version": "0.0.1",
+  "description": "A simple wrapper around the neo4j node driver",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Markonis/neo4j.git"
+  },
+  "keywords": [
+    "Neo4j"
+  ],
+  "author": "Marko Pavlovic",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Markonis/neo4j/issues"
+  },
+  "homepage": "https://github.com/Markonis/neo4j#readme",
+  "dependencies": {
+    "neo4j-driver": "^1.1.1",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "expect.js": "^0.3.1",
+    "mocha": "^3.2.0"
+  }
+}
