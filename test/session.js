@@ -1,10 +1,10 @@
-var Neo4j = require(process.cwd() + '/lib/neo4j.js');
+var Session = require(process.cwd() + '/lib/session.js');
 var expect = require('expect.js');
 var neo4j = require('neo4j-driver').v1;
 
-describe('Neo4j', function() {
+describe('Session', function() {
   beforeEach(function() {
-    this.neo4j = new Neo4j({
+    this.session = new Session({
       url: 'test-url',
       user: 'test-user',
       password: 'test-password'
@@ -23,7 +23,7 @@ describe('Neo4j', function() {
         }]
       };
 
-      var result = this.neo4j.convertNumbers(rawResult);
+      var result = this.session.convertNumbers(rawResult);
 
       expect(result).to.eql({
         records: [{
