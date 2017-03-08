@@ -21,8 +21,10 @@
   "homepage": "https://github.com/Markonis/neo4j#readme",
   "dependencies": {
     "@markonis/options": "0.0.1",
+    "moment": "^2.17.1",
     "neo4j-driver": "^1.1.1",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "uuid": "^3.0.1"
   },
   "devDependencies": {
     "expect.js": "^0.3.1",
