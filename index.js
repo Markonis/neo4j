@@ -1,9 +1,11 @@
 var Session = require('./lib/session.js');
 var serializer = require('./lib/serializer.js');
 var cypherBuilder = require('./lib/cypher-builder.js');
+var Schema = require('./lib/schema.js');
 
 module.exports = {
   Session: Session,
   serializer: serializer,
-  cypherBuilder: cypherBuilder
+  cypherBuilder: cypherBuilder,
+  Schema: Schema
 };
