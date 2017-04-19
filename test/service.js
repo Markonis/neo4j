@@ -87,4 +87,73 @@ describe('service', function() {
         .then(done);
     });
   });
+
+  describe('findOrCreateNode(label, params)', function() {
+    it('returns an existing node', function(done) {
+      function createTestNode() {
+        return service.createNode(':Test', {
+          props: ['uuid', 'name', 'age'],
+          attrs: {
+            uuid: 'test-uuid',
+            name: 'Test',
+            age: 42
+          }
+        });
+      }
+
+      function findOrCreateNode() {
+        return service.findOrCreateNode(':Test', {
+          props: ['uuid', 'name', 'age'],
+          attrs: {
+            name: 'Test',
+            age: 42
+          }
+        });
+      }
+
+      function assertResult(result) {
+        expect(result.uuid).to.eql('test-uuid');
+        expect(result.name).to.eql('Test');
+        expect(result.age).to.eql(42);
+      }
+
+      createTestNode()
+        .then(findOrCreateNode)
+        .then(assertResult)
+        .then(done);
+    });
+
+    it('creates a new node', function(done) {
+      function createTestNode() {
+        return service.createNode(':Test', {
+          props: ['uuid', 'name', 'age'],
+          attrs: {
+            uuid: 'test-uuid',
+            name: 'Test',
+            age: 42
+          }
+        });
+      }
+
+      function findOrCreateNode() {
+        return service.findOrCreateNode(':Test', {
+          props: ['uuid', 'name', 'age'],
+          attrs: {
+            name: 'Test',
+            age: 43
+          }
+        });
+      }
+
+      function assertResult(result) {
+        expect(result.name).to.eql('Test');
+        expect(result.age).to.eql(43);
+      }
+
+      createTestNode()
+        .then(findOrCreateNode)
+        .then(assertResult)
+        .then(done);
+    });
+  });
 });
