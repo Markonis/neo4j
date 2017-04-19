@@ -49,4 +49,42 @@ describe('service', function() {
         .then(done);
     });
   });
+
+  describe('createNode(label, params)', function() {
+    it('creates a new node with the given attributes', function(done) {
+      function createNode() {
+        return service.createNode(':Test', {
+          props: ['uuid', 'name', 'age'],
+          attrs: {
+            name: 'Test',
+            age: 42
+          }
+        });
+      }
+
+      function assertResult(result) {
+        expect(result.name).to.eql('Test');
+        expect(result.age).to.eql(42);
+      }
+
+      function findNode() {
+        return service.runCypher({}, function(q) {
+          q.match([q.node('t:Test')]);
+          q.return([q.json({
+            name: 't.name'
+          })]);
+        });
+      }
+
+      function assertFound(result) {
+        expect(result.name).to.eql('Test');
+      }
+
+      createNode()
+        .then(assertResult)
+        .then(findNode)
+        .then(assertFound)
+        .then(done);
+    });
+  });
 });
