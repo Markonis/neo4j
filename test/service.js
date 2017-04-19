@@ -117,9 +117,24 @@ describe('service', function() {
         expect(result.age).to.eql(42);
       }
 
+      function getCount() {
+        return service.runCypher({}, function(q) {
+          q.match([q.node('t:Test')]);
+          q.return([q.json({
+            count: 'COUNT(t)'
+          })]);
+        });
+      }
+
+      function assertCount(result) {
+        expect(result.count).to.eql(1);
+      }
+
       createTestNode()
         .then(findOrCreateNode)
         .then(assertResult)
+        .then(getCount)
+        .then(assertCount)
         .then(done);
     });
 
@@ -150,9 +165,24 @@ describe('service', function() {
         expect(result.age).to.eql(43);
       }
 
+      function getCount() {
+        return service.runCypher({}, function(q) {
+          q.match([q.node('t:Test')]);
+          q.return([q.json({
+            count: 'COUNT(t)'
+          })]);
+        });
+      }
+
+      function assertCount(result) {
+        expect(result.count).to.eql(2);
+      }
+
       createTestNode()
         .then(findOrCreateNode)
         .then(assertResult)
+        .then(getCount)
+        .then(assertCount)
         .then(done);
     });
   });
