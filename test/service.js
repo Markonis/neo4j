@@ -186,4 +186,88 @@ describe('service', function() {
         .then(done);
     });
   });
+
+  describe('updateNode(label, params)', function() {
+    it('sets the values of attrs', function(done) {
+      function createTestNode() {
+        return service.runCypher({}, function(query) {
+          query.create([
+            query.node(':Test', {
+              uuid: '"test-node"',
+              a: '"b"',
+              c: '"d"',
+              x: 1,
+              y: 2
+            })
+          ]);
+        });
+      }
+
+      function updateNode() {
+        return service.updateNode(':Test', {
+          uuid: 'test-node',
+          attrs: {
+            x: 100,
+            y: 200
+          },
+          props: ['x', 'y']
+        });
+      }
+
+      function assertResult(result) {
+        expect(result).to.eql({
+          x: 100,
+          y: 200
+        });
+      }
+
+      createTestNode()
+        .then(updateNode)
+        .then(assertResult)
+        .then(done);
+    });
+  });
+
+  describe('deleteNode(label, params)', function() {
+    it('deletes a node', function(done) {
+      function createTestNode() {
+        return service.createNode(':Test', {
+          props: ['uuid'],
+          attrs: {
+            uuid: 'test-uuid'
+          }
+        });
+      }
+
+      function deleteNode() {
+        return service.deleteNode(':Test', {
+          uuid: 'test-uuid'
+        });
+      }
+
+      function assertResult(result) {
+        expect(result.uuid).to.eql('test-uuid');
+      }
+
+      function getCount() {
+        return service.runCypher({}, function(q) {
+          q.match([q.node('t:Test')]);
+          q.return([q.json({
+            count: 'COUNT(t)'
+          })]);
+        });
+      }
+
+      function assertCount(result) {
+        expect(result.count).to.eql(0);
+      }
+
+      createTestNode()
+        .then(deleteNode)
+        .then(assertResult)
+        .then(getCount)
+        .then(assertCount)
+        .then(done);
+    });
+  });
 });
