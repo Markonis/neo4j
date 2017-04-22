@@ -231,11 +231,14 @@ describe('service', function() {
   describe('deleteNode(label, params)', function() {
     it('deletes a node', function(done) {
       function createTestNode() {
-        return service.createNode(':Test', {
-          props: ['uuid'],
-          attrs: {
-            uuid: 'test-uuid'
-          }
+        return service.runCypher({}, function(q) {
+          q.create([
+            q.node(':Test', {
+              uuid: '"test-uuid"'
+            }),
+            q.relationRight(':RELATION'),
+            q.node(':Other')
+          ]);
         });
       }
 
